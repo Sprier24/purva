@@ -173,24 +173,6 @@ const getResolvedTasks = async (req, res) => {
   }
 };
 
-const getTasksByStatus = async (req, res) => {
-  const { status } = req.query;
-
-  try {
-    const tasks = await Task.find({ status }, 'Name email amount');
-    res.status(200).json({
-      success: true,
-      data: tasks
-    });
-  } catch (error) {
-    console.error(`Error fetching ${status} tasks:`, error);
-    res.status(500).json({
-      success: false,
-      message: "Internal server error: " + error.message,
-    });
-  }
-};
-
 module.exports = {
   createTask,
   getAllTasks,
@@ -198,5 +180,4 @@ module.exports = {
   updateTask,
   deleteTask,
   getResolvedTasks,
-  getTasksByStatus
 };
