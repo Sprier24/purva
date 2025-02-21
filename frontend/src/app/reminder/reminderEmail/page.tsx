@@ -17,6 +17,29 @@ const EmailInput: React.FC = () => {
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
 
+    const handleSendEmail = async () => {
+        try {
+            const response = await fetch('http://localhost:8000/api/v1/invoice/sendEmailReminder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ to, subject, message }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert(data.message); // Email sent successfully
+            } else {
+                alert(data.message); // Error sending email
+            }
+        } catch (error) {
+            console.error("Error sending email:", error);
+            alert("Failed to send email. Please try again.");
+        }
+    };
+
     return (
         <SidebarProvider>
             <AppSidebar />
@@ -91,7 +114,7 @@ const EmailInput: React.FC = () => {
                                 {/* Send Button */}
                                 <Button
                                     className="w-24 border border-gray-300 rounded-full py-2 px-4 text-sm flex items-center justify-center space-x-2"
-                                    onClick={() => alert("Message Sent!")}
+                                    onClick={handleSendEmail}
                                 >
                                     <IoIosSend className="text-lg" /> {/* Send icon */}
                                     <span>Send</span>
