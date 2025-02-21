@@ -26,7 +26,7 @@ const formSchema = z.object({
   amount: z.number().positive({ message: "Amount must be positive." }),
   discount: z.number().optional(),
   gstRate: z.number().optional(),
-  status: z.enum(["New", "Paid", "Pending"]),
+  status: z.enum(["Pending", "Unpaid", "Paid"]),
   date: z.date().optional(),
   totalWithoutGst: z.number().optional(),
   totalWithGst: z.number().optional(),
@@ -50,7 +50,7 @@ export default function InvoiceForm() {
       amount: 0,
       discount: 0,
       gstRate: 0,
-      status: "New",
+      status: "Unpaid",
       date: new Date(),
       totalWithoutGst: 0,
       totalWithGst: 0,
@@ -322,9 +322,9 @@ export default function InvoiceForm() {
                     {...field}
                     className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="New">New</option>
-                    <option value="Paid">Paid</option>
                     <option value="Pending">Pending</option>
+                    <option value="Unpaid">Unpaid</option>
+                    <option value="Paid">Paid</option>
                   </select>
                 </FormControl>
                 <FormMessage />
@@ -345,7 +345,7 @@ export default function InvoiceForm() {
                         variant={"outline"}
                         className={cn("w-full pl-3 text-left font-normal", !field.value && "text-muted-foreground")}
                       >
-                        {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                        {field.value ? format(field.value, "dd-MM-yyyy") : <span>Pick a date</span>}
                         <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
                     </FormControl>
@@ -374,7 +374,7 @@ export default function InvoiceForm() {
               <FormItem>
                 <FormLabel>Paid Amount</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter paid amount" type="number" {...field} />
+                  <Input placeholder="Enter paid amount" type="number" {...field} onChange={(e) => { const value = e.target.valueAsNumber || 0; field.onChange(value); }}/>
                 </FormControl>
                 <FormMessage />
               </FormItem>

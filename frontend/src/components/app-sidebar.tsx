@@ -53,7 +53,7 @@ const data = {
         { title: "Create", url: "/lead" },
         { title: "List", url: "/lead/list" },
         { title: "Graph", url: "/Lead-chart" },
-        { title: "Drag & Drop", url: "/lead/drag-drop" }
+        { title: "Drag & Drop", url: "/lead/leadDrop" }
       ],
     },
     {
@@ -64,7 +64,7 @@ const data = {
         { title: "Create", url: "/invoice" },
         { title: "List", url: "/invoice/list" },
         { title: "Graph", url: "/Invoice-chart" },
-        { title: "Drag & Drop", url: "/invoice/drag-drop" }
+        { title: "Drag & Drop", url: "/invoice/invoiceDrop" }
       ],
     },
     {
@@ -73,7 +73,7 @@ const data = {
       icon: CirclePlay,
       items: [
         { title: "List", url: "/reminder/list" },
-        { title: "Email", url: "/reminder/email" },
+        { title: "Email", url: "/reminder/reminderEmail" },
         { title: "Create", url: "/reminder" }
       ],
     },
@@ -85,7 +85,7 @@ const data = {
         { title: "Create", url: "/deal" },
         { title: "List", url: "/deal/list" },
         { title: "Graph", url: "/Deal-chart" },
-        { title: "Drag & Drop", url: "/deal/drag-drop" }
+        { title: "Drag & Drop", url: "/deal/dealDrop" }
       ],
     },
     {
@@ -95,8 +95,7 @@ const data = {
       items: [
         { title: "Create", url: "/task" },
         { title: "List", url: "/task/list" },
-        { title: "Graph", url: "/Task-chart" },
-        { title: "Drag & Drop", url: "/task/drag-drop" }
+        { title: "Drag & Drop", url: "/task/taskDrop" }
       ],
     },
     {
@@ -106,7 +105,7 @@ const data = {
       items: [
         { title: "Create", url: "/complaint" },
         { title: "List", url: "/complaint/list" },
-        { title: "Email", url: "/complaint/email" }
+        { title: "Email", url: "/complaint/complaintEmail" }
       ],
     },
     {
@@ -124,7 +123,7 @@ const data = {
       url: "#",
       icon: CirclePlay,
       items: [
-        { title: "Create", url: "/account" },
+        { title: "Create", url: "/Account" },
         { title: "List", url: "/account/list" }
       ],
     },
@@ -143,7 +142,7 @@ const data = {
       url: "#",
       icon: CirclePlay,
       items: [
-        { title: "Create", url: "/scheduled" },
+        { title: "Create", url: "/Scheduled" },
         { title: "List", url: "/scheduled/list" }
       ],
     },

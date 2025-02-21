@@ -77,6 +77,65 @@ body {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
+/* Hide scrollbar for all scrollable elements */
+.scrollable {
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  padding: 10px;
+}
+.form-container {
+  padding: 1rem; /* Reduce form padding */
+}
+.scrollable::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+/* Ensure smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+.row-col{
+  flex-direction: row;
+}
+.min-h-svh {
+  min-height: 10svh;
+}
+
+
+/* .p-6{
+  padding: 1rem;
+} */
+.card-container {
+  width: 100%; /* Adjust as needed */
+  max-width: 600px; /* Prevent it from being too wide */
+  margin: 0 auto; /* Center it */
+  display: flex;
+  gap: 12px;
+}
+
+.card {
+  width: 100%; /* Adjust as needed */
+  max-width: 500px; /* Prevent it from being too wide */
+  margin-top: 8px;
+  border-radius: 8px;
+  background-color: white;
+  padding: 10px;
+  gap:12px;
+}
+
+.card p {
+  font-size: 14px;
+  font-weight: bold;
+  color: #1f2937; /* Dark gray */
+}
+
+.card p span {
+  font-weight: normal;
+  color: #6b7280; /* Lighter gray */
+}
 
 @layer base {
   * {

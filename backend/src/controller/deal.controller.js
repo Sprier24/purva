@@ -38,28 +38,23 @@ const createDeal = async (req, res) => {
     }
 };
 
-
-// Get all leads
-const getAllLeads = async (req, res) => {
+const getAllDeals = async (req, res) => {
     try {
-        // Fetch all leads from the database
-        const leads = await Lead.find({});
+        const deals = await Deal.find({});
 
-        // Check if leads were found
-        if (leads.length === 0) {
+        if (deals.length === 0) {
             return res.status(404).json({
                 success: false,
-                message: "No leads found"
+                message: "No deals found"
             });
         }
 
-        // Successfully return all leads
         res.status(200).json({
             success: true,
-            data: leads
+            data: deals
         });
     } catch (error) {
-        console.error("Error fetching leads:", error);  // Log the error for debugging
+        console.error("Error fetching deals:", error);  
         res.status(500).json({
             success: false,
             message: "Internal server error: " + error.message,
@@ -313,20 +308,19 @@ const searchByDate = async (req, res) => {
     }
 };
 
-// Update lead status
 const updateStatus = async (req, res) => {
-    const { leadId, status } = req.body;
+    const { dealId, status } = req.body;
 
     try {
-        const lead = await Lead.findById(leadId);
-        if (!lead) {
-            return res.status(404).json({ success: false, message: 'Lead not found' });
+        const deal = await Deal.findById(dealId);
+        if (!deal) {
+            return res.status(404).json({ success: false, message: 'Deal not found' });
         }
 
-        lead.status = status;
-        await lead.save();
+        deal.status = status;
+        await deal.save();
 
-        res.json({ success: true, message: 'Lead status updated successfully' });
+        res.json({ success: true, message: 'Deal status updated successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: 'Server error' });
@@ -353,7 +347,7 @@ const getDealsByStatus = async (req, res) => {
 
 module.exports = {
     createDeal,
-    getAllLeads,
+    getAllDeals,
     getLeadById,
     updateLead,
     deleteLead,
@@ -362,6 +356,7 @@ module.exports = {
     getDemoLeads,
     getProposalLeads,
     getDecidedLeads,
+
     updateStatus,
     searchByMonth,
     searchByYear,

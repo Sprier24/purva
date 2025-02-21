@@ -8,7 +8,7 @@ export default function CardChart() {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
-  const statuses = ["New", "Discussion", "Demo", "Proposal", "Decided"];
+  const statuses = ["Proposal", "New", "Discussion", "Demo", "Decided"];
 
   useEffect(() => {
     const fetchAllData = async () => {

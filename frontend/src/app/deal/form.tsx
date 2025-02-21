@@ -57,7 +57,7 @@ export default function DealForm() {
     setIsSubmitting(true);
     try {
       const method = "POST"; // Since there's no id, we are only creating a new deal
-      const response = await fetch("http://localhost:8000/api/v1/deal/createLead", {
+      const response = await fetch("http://localhost:8000/api/v1/deal/createDeal", {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
@@ -207,10 +207,10 @@ export default function DealForm() {
                 <FormLabel>Status</FormLabel>
                 <FormControl>
                   <select {...field} className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="Proposal">Proposal</option>
                     <option value="New">New</option>
                     <option value="Discussion">Discussion</option>
                     <option value="Demo">Demo</option>
-                    <option value="Proposal">Proposal</option>
                     <option value="Decided">Decided</option>
                   </select>
                 </FormControl>
@@ -250,7 +250,7 @@ export default function DealForm() {
                         variant={"outline"}
                         className="w-full pl-3 text-left font-normal"
                       >
-                        {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                        {field.value ? format(field.value, "dd-MM-yyyy") : <span>Pick a date</span>}
                         <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
                     </FormControl>
@@ -283,7 +283,7 @@ export default function DealForm() {
                         variant={"outline"}
                         className="w-full pl-3 text-left font-normal"
                       >
-                        {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                        {field.value ? format(field.value, "dd-MM-yyyy") : <span>Pick a date</span>}
                         <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
                     </FormControl>

@@ -21,7 +21,7 @@ const taskSchema = z.object({
   assigned: z.string().min(2, { message: "Assigned person is required." }),
   taskDate: z.date().optional(),
   dueDate: z.date().optional(),
-  status: z.enum(["Pending", "Resolved", "In Progress"]),
+  status: z.enum(["Pending", "In Progress","Resolved"]),
   priority: z.enum(["High", "Medium", "Low"]),
   notes: z.string().optional(),
   
@@ -218,8 +218,8 @@ export default function Task() {
                 <FormControl>
                   <select {...field} className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="Pending">Pending</option>
-                    <option value="Resolved">Resolved</option>
                     <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
                   </select>
                 </FormControl>
                 <FormMessage />

@@ -173,6 +173,25 @@ const getResolvedTasks = async (req, res) => {
   }
 };
 
+const updateStatus = async (req, res) => {
+  const { taskId, status } = req.body;
+
+  try {
+      const task = await Task.findById(taskId);
+      if (!task) {
+          return res.status(404).json({ success: false, message: 'Task not found' });
+      }
+
+      task.status = status;
+      await task.save();
+
+      res.json({ success: true, message: 'Task status updated successfully' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
 module.exports = {
   createTask,
   getAllTasks,
@@ -180,4 +199,5 @@ module.exports = {
   updateTask,
   deleteTask,
   getResolvedTasks,
+  updateStatus
 };
