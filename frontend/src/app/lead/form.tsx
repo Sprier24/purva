@@ -31,10 +31,7 @@ import { CalendarIcon, Loader2 } from "lucide-react"
     {name: "Paused", uid: "paused"},
     {name: "Vacation", uid: "vacation"},
   ];
-
-
-
-
+  
 const formSchema = z.object({
     companyName: z.string().min(2, { message: "Company name is required." }),
     customerName: z.string().min(2, { message: "Customer name must be at least 2 characters." }),

@@ -93,10 +93,14 @@ export default function App() {
     Decided: "bg-purple-200 text-gray-800 border-2 border-purple-900 shadow-lg shadow-purple-900/50",
   };
 
-  const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-    return date.toISOString().split("T")[0];
-  };
+const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) {
+    console.warn(`Invalid date: ${dateString}`); // Log invalid dates for debugging
+    return "Invalid Date"; // Return a fallback value
+  }
+  return date.toISOString().split("T")[0]; // Format as YYYY-MM-DD
+};
 
   const handleDragStart = (e: React.DragEvent, lead: Lead, fromStatus: string) => {
     e.dataTransfer.setData("lead", JSON.stringify(lead));

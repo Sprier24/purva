@@ -182,9 +182,7 @@ const getContactById = async (req, res) => {
   }
 };
 
-// Call API Function
-// Create Call Link
-// Create Call Link with a hardcoded number
+
 const createCallLink = async (req, res) => {
   const fixedPhoneNumber = "+123456789"; // Replace this with your phone number
 
@@ -206,6 +204,50 @@ const createCallLink = async (req, res) => {
   }
 };
 
+const sendEmailContact = async (req, res) => {
+    const { to, subject, message } = req.body; 
+
+    if (!to || !subject || !message) {
+        return res.status(400).json({
+            success: false,
+            message: "All fields (to, subject, message) are required.",
+        });
+    }
+
+    try {
+        
+        const mailOptions = {
+            from: "purvagalani@gmail.com", 
+            to: to, 
+            subject: subject, 
+            text: message, 
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error("Error sending email:", error.message);
+                return res.status(500).json({
+                    success: false,
+                    message: "Error sending email: " + error.message,
+                });
+            }
+
+            console.log("Email sent successfully: " + info.response);
+            res.status(200).json({
+                success: true,
+                message: `Email sent successfully to ${to}`,
+                data: info.response, 
+            });
+        });
+    } catch (error) {
+        console.error("Error sending email:", error.message);
+        res.status(500).json({
+            success: false,
+            message: "Internal server error: " + error.message,
+        });
+    }
+};
+
 
 module.exports = {
   sendSMS,
@@ -215,7 +257,8 @@ module.exports = {
   getAllContacts,
   getContactById,
   sendEmailReminder,
-  createCallLink, // Export the new API
+  createCallLink, 
+  sendEmailContact
 };
 
 

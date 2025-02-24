@@ -115,7 +115,7 @@ const data = {
       items: [
         { title: "Create", url: "/contact" },
         { title: "List", url: "/contact/list" },
-        { title: "Email", url: "/contact/email" }
+        { title: "Email", url: "/contact/contactEmail" }
       ],
     },
     {
