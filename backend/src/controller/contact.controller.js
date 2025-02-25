@@ -1,8 +1,5 @@
 const Contact = require('../model/contactSchema.model');
 const nodemailer = require("nodemailer");
-const twilio = require("twilio");
-
-const client = twilio("","" );
 
 // Send SMS Function
 const sendSMS = async (req, res) => {
@@ -25,6 +22,7 @@ const transporter = nodemailer.createTransport({
         pass: "tefl tsvl dxuo toch",  // Replace with your Gmail App Password
     },
 });
+
 // Create Contact
 const createContact = async (req, res) => {
   const { companyName, customerName, emailAddress, contactNumber, address, gstNumber, description } = req.body;
@@ -47,10 +45,6 @@ const createContact = async (req, res) => {
   }
 };
 
-// Send Email Function
-
-
-// Send Email Function
 const sendEmailReminder = async (req, res) => {
   const { id } = req.params;  // Extract the contact ID from the request parameters
   const { message } = req.body;  // Extract the message from the request body
@@ -104,8 +98,6 @@ const sendEmailReminder = async (req, res) => {
     });
   }
 };
-
-
 
 // Get All Contacts
 const getAllContacts = async (req, res) => {
@@ -182,7 +174,6 @@ const getContactById = async (req, res) => {
   }
 };
 
-
 const createCallLink = async (req, res) => {
   const fixedPhoneNumber = "+123456789"; // Replace this with your phone number
 
@@ -204,48 +195,100 @@ const createCallLink = async (req, res) => {
   }
 };
 
-const sendEmailContact = async (req, res) => {
-    const { to, subject, message } = req.body; 
+const sendEmailComplaint = async (req, res) => {
 
-    if (!to || !subject || !message) {
-        return res.status(400).json({
-            success: false,
-            message: "All fields (to, subject, message) are required.",
-        });
-    }
+  const { to, subject, message } = req.body;
+  const attachments = req.files; // Get uploaded files
 
-    try {
-        
-        const mailOptions = {
-            from: "purvagalani@gmail.com", 
-            to: to, 
-            subject: subject, 
-            text: message, 
-        };
+  if (!to || !subject || !message) {
+      return res.status(400).json({
+          success: false,
+          message: "All fields (to, subject, message) are required.",
+      });
+  }
 
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.error("Error sending email:", error.message);
-                return res.status(500).json({
-                    success: false,
-                    message: "Error sending email: " + error.message,
-                });
-            }
+  try {
+      const mailOptions = {
+          from: "purvagalani@gmail.com",
+          to: to,
+          subject: subject,
+          text: message,
+          attachments: attachments.map(file => ({
+              filename: file.originalname,
+              path: file.path
+          }))
+      };
 
-            console.log("Email sent successfully: " + info.response);
-            res.status(200).json({
-                success: true,
-                message: `Email sent successfully to ${to}`,
-                data: info.response, 
-            });
-        });
-    } catch (error) {
-        console.error("Error sending email:", error.message);
-        res.status(500).json({
-            success: false,
-            message: "Internal server error: " + error.message,
-        });
-    }
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              console.error("Error sending email:", error.message);
+              return res.status(500).json({
+                  success: false,
+                  message: "Error sending email: " + error.message,
+              });
+          }
+
+          console.log("Email sent successfully: " + info.response);
+          res.status(200).json({
+              success: true,
+              message: `Email sent successfully to ${to}`,
+              data: info.response,
+          });
+      });
+  } catch (error) {
+      console.error("Error sending email:", error.message);
+      res.status(500).json({
+          success: false,
+          message: "Internal server error: " + error.message,
+      });
+  }
+};const sendEmailContact = async (req, res) => {
+
+  const { to, subject, message } = req.body;
+  const attachments = req.files; // Get uploaded files
+
+  if (!to || !subject || !message) {
+      return res.status(400).json({
+          success: false,
+          message: "All fields (to, subject, message) are required.",
+      });
+  }
+
+  try {
+      const mailOptions = {
+          from: "purvagalani@gmail.com",
+          to: to,
+          subject: subject,
+          text: message,
+          attachments: attachments.map(file => ({
+              filename: file.originalname,
+              path: file.path
+          }))
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              console.error("Error sending email:", error.message);
+              return res.status(500).json({
+                  success: false,
+                  message: "Error sending email: " + error.message,
+              });
+          }
+
+          console.log("Email sent successfully: " + info.response);
+          res.status(200).json({
+              success: true,
+              message: `Email sent successfully to ${to}`,
+              data: info.response,
+          });
+      });
+  } catch (error) {
+      console.error("Error sending email:", error.message);
+      res.status(500).json({
+          success: false,
+          message: "Internal server error: " + error.message,
+      });
+  }
 };
 
 

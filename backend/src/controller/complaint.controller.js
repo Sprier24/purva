@@ -2,7 +2,7 @@ const Complaint = require('../model/complaintSchema.model');const { storeNotific
 const cron = require('node-cron');
 const nodemailer = require("nodemailer");
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+
 
 const createComplaint = async (req, res) => {
   try {
@@ -188,8 +188,6 @@ const transporter = nodemailer.createTransport({
 // };
 
 const sendEmailComplaint = async (req, res) => {
-  console.log(req.files);  // Check if files are received correctly
-  console.log(req.body);   // Check the email details
 
   const { to, subject, message } = req.body;
   const attachments = req.files; // Get uploaded files

@@ -143,51 +143,53 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendEmailReminder = async (req, res) => {
-    const { to, subject, message } = req.body; // Extract data from the request body
 
-    // Validate input fields
-    if (!to || !subject || !message) {
-        return res.status(400).json({
-            success: false,
-            message: "All fields (to, subject, message) are required.",
-        });
-    }
+  const { to, subject, message } = req.body;
+  const attachments = req.files; // Get uploaded files
 
-    try {
-        // Define the email options
-        const mailOptions = {
-            from: "purvagalani@gmail.com", // Fixed sender's email address
-            to: to, // Recipient's email address from the request
-            subject: subject, // Subject from the request
-            text: message, // Message from the request
-        };
+  if (!to || !subject || !message) {
+      return res.status(400).json({
+          success: false,
+          message: "All fields (to, subject, message) are required.",
+      });
+  }
 
-        // Send the email using Nodemailer
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.error("Error sending email:", error.message);
-                return res.status(500).json({
-                    success: false,
-                    message: "Error sending email: " + error.message,
-                });
-            }
+  try {
+      const mailOptions = {
+          from: "purvagalani@gmail.com",
+          to: to,
+          subject: subject,
+          text: message,
+          attachments: attachments.map(file => ({
+              filename: file.originalname,
+              path: file.path
+          }))
+      };
 
-            console.log("Email sent successfully: " + info.response);
-            res.status(200).json({
-                success: true,
-                message: `Email sent successfully to ${to}`,
-                data: info.response, // Return the email info (optional)
-            });
-        });
-    } catch (error) {
-        console.error("Error sending email:", error.message);
-        res.status(500).json({
-            success: false,
-            message: "Internal server error: " + error.message,
-        });
-    }
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              console.error("Error sending email:", error.message);
+              return res.status(500).json({
+                  success: false,
+                  message: "Error sending email: " + error.message,
+              });
+          }
+
+          console.log("Email sent successfully: " + info.response);
+          res.status(200).json({
+              success: true,
+              message: `Email sent successfully to ${to}`,
+              data: info.response,
+          });
+      });
+  } catch (error) {
+      console.error("Error sending email:", error.message);
+      res.status(500).json({
+          success: false,
+          message: "Internal server error: " + error.message,
+      });
+  }
 };
-
 const updateInvoice = async (req, res) => {
     const { id } = req.params;
     const updates = req.body;

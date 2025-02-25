@@ -13,7 +13,6 @@ import { toast } from "@/hooks/use-toast"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { CalendarIcon, Loader2 } from "lucide-react"
-
   
   export const columns = [
     {name: "ID", uid: "id", sortable: true},
@@ -276,10 +275,10 @@ export default function LeadForm() {
                                     </PopoverTrigger>
                                     <PopoverContent className="w-auto p-0" align="start">
                                         <Calendar
-                                            mode="single"
+                                            // mode="single"
                                             selected={field.value}
                                             onSelect={field.onChange}
-                                            disabled={(date) => date > new Date()}
+                                            // disabled={(date) => date > new Date()}
                                             initialFocus
                                         />
                                     </PopoverContent>

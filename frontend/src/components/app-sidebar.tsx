@@ -50,8 +50,8 @@ const data = {
       url: "#",
       icon: CirclePlay,
       items: [
-        { title: "Create", url: "/lead" },
-        { title: "List", url: "/lead/list" },
+        { title: "Create", url: "/lead/leadForm" },
+        { title: "List", url: "/lead" },
         { title: "Graph", url: "/Lead-chart" },
         { title: "Drag & Drop", url: "/lead/leadDrop" }
       ],
